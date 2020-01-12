@@ -10,6 +10,9 @@ public enum Direction {
     if (this == E) {
       return new Position(previousPosition.getX() + 1, previousPosition.getY());
     }
+    if (this == S) {
+      return new Position(previousPosition.getX(), previousPosition.getY() - 1);
+    }
     return null;
   }
 }
