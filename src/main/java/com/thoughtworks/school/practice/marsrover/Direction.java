@@ -30,6 +30,9 @@ public enum Direction {
       if (this == N) {
         return W;
       }
+      if (this == W) {
+        return S;
+      }
     }
     return null;
   }
