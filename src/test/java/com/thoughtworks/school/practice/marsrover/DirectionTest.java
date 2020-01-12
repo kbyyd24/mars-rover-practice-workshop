@@ -32,4 +32,13 @@ class DirectionTest {
 
     assertEquals(-1, newPosition.getY() - previousPosition.getY());
   }
+
+  @Test
+  void should_return_new_position_with_minus_1_x_when_west_move() {
+    Position previousPosition = new Position(0, 0);
+
+    Position newPosition = Direction.W.move(previousPosition);
+
+    assertEquals(-1, newPosition.getX() - previousPosition.getX());
+  }
 }
