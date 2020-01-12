@@ -1,0 +1,13 @@
+# Ignore Gradle project-specific cache directory
+.gradle
+
+# Ignore Gradle build output directory
+build
+
+mars-rover-practice-workshop.iml
+mars-rover-practice-workshop.ipr
+mars-rover-practice-workshop.iws
+mars-rover-practice-workshop.main.iml
+mars-rover-practice-workshop.test.iml
+
+.gradletasknamecache
