@@ -83,4 +83,11 @@ class DirectionTest {
 
     assertEquals(Direction.S, south);
   }
+
+  @Test
+  void should_turn_to_west_when_south_turn_to_right() {
+    Direction west = Direction.S.turn(TurnDirection.R);
+
+    assertEquals(Direction.W, west);
+  }
 }
