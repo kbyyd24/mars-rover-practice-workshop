@@ -66,6 +66,9 @@ public enum Direction {
       if (turnDirection == L) {
         return S;
       }
+      if (turnDirection == R) {
+        return N;
+      }
       return null;
     }
   };
