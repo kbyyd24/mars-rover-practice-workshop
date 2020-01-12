@@ -5,16 +5,16 @@ public enum Direction {
 
   public Position move(Position previousPosition) {
     if (this == N) {
-      return new Position(previousPosition.getX(), previousPosition.getY() + 1);
+      return previousPosition.moveY(1);
     }
     if (this == E) {
-      return new Position(previousPosition.getX() + 1, previousPosition.getY());
+      return previousPosition.moveX(1);
     }
     if (this == S) {
-      return new Position(previousPosition.getX(), previousPosition.getY() - 1);
+      return previousPosition.moveY(-1);
     }
     if (this == W) {
-      return new Position(previousPosition.getX() - 1, previousPosition.getY());
+      return previousPosition.moveX(-1);
     }
     return null;
   }
