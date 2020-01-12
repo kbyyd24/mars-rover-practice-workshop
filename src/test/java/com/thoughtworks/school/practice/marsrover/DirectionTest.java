@@ -41,4 +41,11 @@ class DirectionTest {
 
     assertEquals(-1, newPosition.getX() - previousPosition.getX());
   }
+
+  @Test
+  void should_turn_to_west_when_north_turn_left() {
+    Direction west = Direction.N.turn(TurnDirection.L);
+
+    assertEquals(Direction.W, west);
+  }
 }

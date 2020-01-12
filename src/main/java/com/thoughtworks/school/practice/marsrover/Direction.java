@@ -25,4 +25,13 @@ public enum Direction {
 
   abstract public Position move(Position previousPosition);
 
+  public Direction turn(TurnDirection turnDirection) {
+    if (turnDirection == TurnDirection.L) {
+      if (this == N) {
+        return W;
+      }
+    }
+    return null;
+  }
+
 }
