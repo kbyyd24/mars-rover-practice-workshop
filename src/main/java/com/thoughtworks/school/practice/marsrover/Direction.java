@@ -1,21 +1,28 @@
 package com.thoughtworks.school.practice.marsrover;
 
 public enum Direction {
-  N, E, S, W;
-
-  public Position move(Position previousPosition) {
-    if (this == N) {
+  N {
+    @Override
+    public Position move(Position previousPosition) {
       return previousPosition.moveY(1);
     }
-    if (this == E) {
+  }, E {
+    @Override
+    public Position move(Position previousPosition) {
       return previousPosition.moveX(1);
     }
-    if (this == S) {
+  }, S {
+    @Override
+    public Position move(Position previousPosition) {
       return previousPosition.moveY(-1);
     }
-    if (this == W) {
+  }, W {
+    @Override
+    public Position move(Position previousPosition) {
       return previousPosition.moveX(-1);
     }
-    return null;
-  }
+  };
+
+  abstract public Position move(Position previousPosition);
+
 }
