@@ -32,6 +32,9 @@ public enum Direction {
       if (turnDirection == L) {
         return N;
       }
+      if (turnDirection == R) {
+        return S;
+      }
       return null;
     }
   },
