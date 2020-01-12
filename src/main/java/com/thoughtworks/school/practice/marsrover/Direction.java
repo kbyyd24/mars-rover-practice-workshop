@@ -1,6 +1,7 @@
 package com.thoughtworks.school.practice.marsrover;
 
 import static com.thoughtworks.school.practice.marsrover.TurnDirection.L;
+import static com.thoughtworks.school.practice.marsrover.TurnDirection.R;
 
 public enum Direction {
   N {
@@ -13,6 +14,9 @@ public enum Direction {
     public Direction turn(TurnDirection turnDirection) {
       if (turnDirection == L) {
         return W;
+      }
+      if (turnDirection == R) {
+        return E;
       }
       return null;
     }
