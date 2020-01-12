@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@2
+      - uses: actions/checkout@1
         with:
           ref: master
       - name: Setup JDK 1.8
