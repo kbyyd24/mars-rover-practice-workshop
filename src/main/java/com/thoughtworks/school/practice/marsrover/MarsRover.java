@@ -1,8 +1,5 @@
 package com.thoughtworks.school.practice.marsrover;
 
-import java.util.Arrays;
-import java.util.stream.Stream;
-
 public class MarsRover {
 
   private Position position;
@@ -15,10 +12,23 @@ public class MarsRover {
 
   public static MarsRoverReport handle(int positionX, int positionY, Direction direction, String moveCommand) {
     MarsRover marsRover = new MarsRover(new Position(positionX, positionY), direction);
-    for (int i = 0; i < moveCommand.length(); i++) {
-      marsRover.move();
-    }
+    moveCommand.chars()
+        .mapToObj(i -> (char) i)
+        .forEach(marsRover::handle);
     return marsRover.report();
+  }
+
+  private void handle(Character command) {
+    if (command == 'M') {
+      this.move();
+    } else if (command == 'L' || command == 'R') {
+      this.turn(command);
+    }
+  }
+
+  private void turn(Character command) {
+    TurnDirection turnDirection = TurnDirection.valueOf(String.valueOf(command));
+    this.direction = this.direction.turn(turnDirection);
   }
 
   private void move() {

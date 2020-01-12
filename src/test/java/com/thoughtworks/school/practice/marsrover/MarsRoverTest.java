@@ -24,4 +24,14 @@ class MarsRoverTest {
     assertEquals(2, report.getPosition().getY());
     assertEquals(N, report.getDirection());
   }
+
+  @Test
+  void should_receive_command_and_move_and_turn_mars_rover() {
+    MarsRoverReport report = MarsRover.handle(0, 0, N, "MLMLMMLMMLMRMMRRMR");
+
+    assertEquals(2, report.getPosition().getX());
+    assertEquals(0, report.getPosition().getY());
+    assertEquals(N, report.getDirection());
+
+  }
 }
