@@ -7,6 +7,8 @@ import static com.thoughtworks.school.practice.marsrover.Direction.W;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 class MarsRoverTest {
 
@@ -67,5 +69,16 @@ class MarsRoverTest {
     assertEquals(1, marsRover.getLocation().getX());
     assertEquals(0, marsRover.getLocation().getY());
     assertEquals(E, marsRover.getDirection());
+  }
+
+  @ParameterizedTest
+  @CsvSource({"N, W", "W, S", "S, E", "E, N"})
+  void should_turn_left_success(Direction from, Direction to) {
+    MarsRover marsRover = new MarsRover();
+    marsRover.init(0, 0, from);
+
+    marsRover.turn(Command.L);
+
+    assertEquals(to, marsRover.getDirection());
   }
 }

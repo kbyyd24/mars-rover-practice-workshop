@@ -17,6 +17,12 @@ public class MarsRover {
     this.put(S, new Location(0, -1));
     this.put(E, new Location(1, 0));
   }});
+  private static final Map<Direction, Direction> TURN_LEFT_MAP = Collections.unmodifiableMap(new HashMap<Direction, Direction>() {{
+    this.put(N, W);
+    this.put(W, S);
+    this.put(S, E);
+    this.put(E, N);
+  }});
 
   private Location location;
   private Direction direction;
@@ -37,5 +43,9 @@ public class MarsRover {
   public void move() {
     Location relatedLocation = DIRECTION_TO_RELATED_LOCATION.get(this.direction);
     this.location = this.location.getAbsoluteLocation(relatedLocation);
+  }
+
+  public void turn(Command command) {
+    this.direction = TURN_LEFT_MAP.get(this.direction);
   }
 }
