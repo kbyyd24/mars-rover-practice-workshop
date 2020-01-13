@@ -1,5 +1,7 @@
 package com.thoughtworks.school.practice.marsrover;
 
+import static com.thoughtworks.school.practice.marsrover.Command.L;
+import static com.thoughtworks.school.practice.marsrover.Command.R;
 import static com.thoughtworks.school.practice.marsrover.Direction.E;
 import static com.thoughtworks.school.practice.marsrover.Direction.N;
 import static com.thoughtworks.school.practice.marsrover.Direction.S;
@@ -77,7 +79,18 @@ class MarsRoverTest {
     MarsRover marsRover = new MarsRover();
     marsRover.init(0, 0, from);
 
-    marsRover.turn(Command.L);
+    marsRover.turn(L);
+
+    assertEquals(to, marsRover.getDirection());
+  }
+
+  @ParameterizedTest
+  @CsvSource({"N, E", "E, S", "S, W", "W, N"})
+  void should_turn_right_success(Direction from, Direction to) {
+    MarsRover marsRover = new MarsRover();
+    marsRover.init(0, 0, from);
+
+    marsRover.turn(R);
 
     assertEquals(to, marsRover.getDirection());
   }
