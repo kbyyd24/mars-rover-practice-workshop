@@ -1,5 +1,7 @@
 package com.thoughtworks.school.practice.marsrover;
 
+import static com.thoughtworks.school.practice.marsrover.Command.L;
+import static com.thoughtworks.school.practice.marsrover.Command.R;
 import static com.thoughtworks.school.practice.marsrover.Direction.E;
 import static com.thoughtworks.school.practice.marsrover.Direction.N;
 import static com.thoughtworks.school.practice.marsrover.Direction.S;
@@ -29,6 +31,11 @@ public class MarsRover {
     this.put(S, W);
     this.put(W, N);
   }});
+  private static final Map<Command, Map<Direction, Direction>> COMMAND_TO_TURN_MAP = Collections
+      .unmodifiableMap(new HashMap<Command, Map<Direction, Direction>>() {{
+        this.put(L, TURN_LEFT_MAP);
+        this.put(R, TURN_RIGHT_MAP);
+      }});
 
   private Location location;
   private Direction direction;
@@ -52,11 +59,6 @@ public class MarsRover {
   }
 
   public void turn(Command command) {
-    if (command == Command.L) {
-      this.direction = TURN_LEFT_MAP.get(this.direction);
-    }
-    if (command == Command.R) {
-      this.direction = TURN_RIGHT_MAP.get(this.direction);
-    }
+    this.direction = COMMAND_TO_TURN_MAP.get(command).get(this.direction);
   }
 }
