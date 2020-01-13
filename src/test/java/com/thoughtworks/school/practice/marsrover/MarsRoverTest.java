@@ -17,4 +17,16 @@ class MarsRoverTest {
     assertEquals(0, marsRover.getLocation().getY());
     assertEquals(N, marsRover.getDirection());
   }
+
+  @Test
+  void should_make_y_plus_1_when_move_and_direction_is_north() {
+    MarsRover marsRover = new MarsRover();
+    marsRover.init(0, 0, N);
+
+    marsRover.move();
+
+    assertEquals(0, marsRover.getLocation().getX());
+    assertEquals(1, marsRover.getLocation().getY());
+    assertEquals(N, marsRover.getDirection());
+  }
 }

@@ -1,7 +1,5 @@
 package com.thoughtworks.school.practice.marsrover;
 
-import java.util.Locale;
-
 public class MarsRover {
 
   private Location location;
@@ -18,5 +16,9 @@ public class MarsRover {
 
   public Direction getDirection() {
     return direction;
+  }
+
+  public void move() {
+    this.location = new Location(this.location.getX(), this.location.getY() + 1);
   }
 }
