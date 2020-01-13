@@ -1,5 +1,6 @@
 package com.thoughtworks.school.practice.marsrover;
 
+import static com.thoughtworks.school.practice.marsrover.Direction.E;
 import static com.thoughtworks.school.practice.marsrover.Direction.N;
 import static com.thoughtworks.school.practice.marsrover.Direction.S;
 import static com.thoughtworks.school.practice.marsrover.Direction.W;
@@ -54,5 +55,17 @@ class MarsRoverTest {
     assertEquals(0, marsRover.getLocation().getX());
     assertEquals(-1, marsRover.getLocation().getY());
     assertEquals(S, marsRover.getDirection());
+  }
+
+  @Test
+  void should_make_x_plus_1_when_move_and_direction_is_east() {
+    MarsRover marsRover = new MarsRover();
+    marsRover.init(0, 0, E);
+
+    marsRover.move();
+
+    assertEquals(1, marsRover.getLocation().getX());
+    assertEquals(0, marsRover.getLocation().getY());
+    assertEquals(E, marsRover.getDirection());
   }
 }

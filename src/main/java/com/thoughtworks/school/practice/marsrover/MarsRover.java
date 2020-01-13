@@ -1,5 +1,6 @@
 package com.thoughtworks.school.practice.marsrover;
 
+import static com.thoughtworks.school.practice.marsrover.Direction.E;
 import static com.thoughtworks.school.practice.marsrover.Direction.N;
 import static com.thoughtworks.school.practice.marsrover.Direction.S;
 import static com.thoughtworks.school.practice.marsrover.Direction.W;
@@ -14,6 +15,7 @@ public class MarsRover {
     this.put(N, new Location(0, 1));
     this.put(W, new Location(-1, 0));
     this.put(S, new Location(0, -1));
+    this.put(E, new Location(1, 0));
   }});
 
   private Location location;
