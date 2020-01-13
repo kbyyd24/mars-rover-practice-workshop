@@ -80,7 +80,7 @@ class MarsRoverTest {
     MarsRover marsRover = new MarsRover();
     marsRover.init(0, 0, from);
 
-    marsRover.turn(L);
+    marsRover.turnLeft();
 
     assertEquals(to, marsRover.getDirection());
   }
@@ -91,7 +91,7 @@ class MarsRoverTest {
     MarsRover marsRover = new MarsRover();
     marsRover.init(0, 0, from);
 
-    marsRover.turn(R);
+    marsRover.turnRight();
 
     assertEquals(to, marsRover.getDirection());
   }

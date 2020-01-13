@@ -33,14 +33,17 @@ public class MarsRover {
     this.put(S, W);
     this.put(W, N);
   }});
-  private static final Map<Command, Map<Direction, Direction>> COMMAND_TO_TURN_MAP = Collections
-      .unmodifiableMap(new HashMap<Command, Map<Direction, Direction>>() {{
-        this.put(L, TURN_LEFT_MAP);
-        this.put(R, TURN_RIGHT_MAP);
-      }});
 
   private Location location;
   private Direction direction;
+  private final Map<Command, Runnable> commandToAction;
+
+  public MarsRover() {
+    this.commandToAction = new HashMap<>();
+    commandToAction.put(M, this::move);
+    commandToAction.put(L, this::turnLeft);
+    commandToAction.put(R, this::turnRight);
+  }
 
   public void init(int locationX, int locationY, Direction direction) {
     this.location = new Location(locationX, locationY);
@@ -60,8 +63,12 @@ public class MarsRover {
     this.location = this.location.getAbsoluteLocation(relatedLocation);
   }
 
-  public void turn(Command command) {
-    this.direction = COMMAND_TO_TURN_MAP.get(command).get(this.direction);
+  public void turnLeft() {
+    this.direction = TURN_LEFT_MAP.get(this.direction);
+  }
+
+  public void turnRight() {
+    this.direction = TURN_RIGHT_MAP.get(this.direction);
   }
 
   public void handleBatch(int initLocationX, int initLocationY, Direction initDirection, Command... commands) {
@@ -70,10 +77,6 @@ public class MarsRover {
   }
 
   private void handle(Command command) {
-    if (command == M) {
-      this.move();
-    } else if (command == L || command == R) {
-      this.turn(command);
-    }
+    this.commandToAction.get(command).run();
   }
 }
