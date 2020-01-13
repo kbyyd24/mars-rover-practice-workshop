@@ -1,12 +1,14 @@
 package com.thoughtworks.school.practice.marsrover;
 
 import static com.thoughtworks.school.practice.marsrover.Command.L;
+import static com.thoughtworks.school.practice.marsrover.Command.M;
 import static com.thoughtworks.school.practice.marsrover.Command.R;
 import static com.thoughtworks.school.practice.marsrover.Direction.E;
 import static com.thoughtworks.school.practice.marsrover.Direction.N;
 import static com.thoughtworks.school.practice.marsrover.Direction.S;
 import static com.thoughtworks.school.practice.marsrover.Direction.W;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -60,5 +62,18 @@ public class MarsRover {
 
   public void turn(Command command) {
     this.direction = COMMAND_TO_TURN_MAP.get(command).get(this.direction);
+  }
+
+  public void handleBatch(int initLocationX, int initLocationY, Direction initDirection, Command... commands) {
+    this.init(initLocationX, initLocationY, initDirection);
+    Arrays.stream(commands).forEach(this::handle);
+  }
+
+  private void handle(Command command) {
+    if (command == M) {
+      this.move();
+    } else if (command == L || command == R) {
+      this.turn(command);
+    }
   }
 }
