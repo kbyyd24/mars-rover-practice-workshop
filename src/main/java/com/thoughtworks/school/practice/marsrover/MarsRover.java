@@ -1,9 +1,20 @@
 package com.thoughtworks.school.practice.marsrover;
 
 import static com.thoughtworks.school.practice.marsrover.Direction.N;
+import static com.thoughtworks.school.practice.marsrover.Direction.S;
 import static com.thoughtworks.school.practice.marsrover.Direction.W;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 public class MarsRover {
+
+  private static final Map<Direction, Location> DIRECTION_TO_RELATED_LOCATION = Collections.unmodifiableMap(new HashMap<Direction, Location>() {{
+    this.put(N, new Location(0, 1));
+    this.put(W, new Location(-1, 0));
+    this.put(S, new Location(0, -1));
+  }});
 
   private Location location;
   private Direction direction;
@@ -22,11 +33,7 @@ public class MarsRover {
   }
 
   public void move() {
-    if (direction == N) {
-      this.location = this.location.getAbsoluteLocation(new Location(0, 1));
-    }
-    if (direction == W) {
-      this.location = this.location.getAbsoluteLocation(new Location(-1, 0));
-    }
+    Location relatedLocation = DIRECTION_TO_RELATED_LOCATION.get(this.direction);
+    this.location = this.location.getAbsoluteLocation(relatedLocation);
   }
 }
