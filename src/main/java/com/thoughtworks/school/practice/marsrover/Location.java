@@ -17,4 +17,8 @@ public class Location {
   public int getY() {
     return y;
   }
+
+  public Location getAbsoluteLocation(Location relatedLocation) {
+    return new Location(this.x + relatedLocation.x, this.y + relatedLocation.y);
+  }
 }
