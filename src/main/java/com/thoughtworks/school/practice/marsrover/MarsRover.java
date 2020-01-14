@@ -7,6 +7,7 @@ import static com.thoughtworks.school.practice.marsrover.Direction.W;
 
 import com.thoughtworks.school.practice.marsrover.event.MarsRoverInited;
 import com.thoughtworks.school.practice.marsrover.event.MarsRoverMoved;
+import com.thoughtworks.school.practice.marsrover.event.MarsRoverTurned;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
@@ -46,5 +47,13 @@ public class MarsRover {
 
   public void apply(MarsRoverMoved event) {
     this.location = event.getEndLocation();
+  }
+
+  public MarsRoverTurned turnRight() {
+    return new MarsRoverTurned(Direction.rightOf(this.direction));
+  }
+
+  public void apply(MarsRoverTurned event) {
+    this.direction = event.getDirection();
   }
 }

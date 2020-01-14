@@ -8,14 +8,29 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.thoughtworks.school.practice.marsrover.event.MarsRoverInited;
 import com.thoughtworks.school.practice.marsrover.event.MarsRoverMoved;
+import com.thoughtworks.school.practice.marsrover.event.MarsRoverTurned;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
 class MarsRoverTest {
 
+  private MarsRover marsRover;
+
+  @BeforeEach
+  void setUp() {
+    this.marsRover = new MarsRover();
+  }
+
+  @AfterEach
+  void tearDown() {
+    this.marsRover = null;
+  }
+
   @Test
   void should_inti_mars_rover_success() {
-    MarsRover marsRover = new MarsRover();
-
     MarsRoverInited event = marsRover.init(0, 0, N);
     marsRover.apply(event);
 
@@ -26,7 +41,6 @@ class MarsRoverTest {
 
   @Test
   void should_make_y_plus_1_when_move_north() {
-    MarsRover marsRover = new MarsRover();
     MarsRoverInited initEvent = new MarsRoverInited(new Location(0, 0), N);
     marsRover.apply(initEvent);
 
@@ -40,7 +54,6 @@ class MarsRoverTest {
 
   @Test
   void should_make_x_minus_1_when_move_west() {
-    MarsRover marsRover = new MarsRover();
     MarsRoverInited inited = new MarsRoverInited(new Location(0, 0), W);
     marsRover.apply(inited);
 
@@ -54,7 +67,6 @@ class MarsRoverTest {
 
   @Test
   void should_make_y_minus_1_when_move_south() {
-    MarsRover marsRover = new MarsRover();
     MarsRoverInited inited = new MarsRoverInited(new Location(0, 0), S);
     marsRover.apply(inited);
 
@@ -68,7 +80,6 @@ class MarsRoverTest {
 
   @Test
   void should_make_x_plus_1_when_move_east() {
-    MarsRover marsRover = new MarsRover();
     MarsRoverInited inited = new MarsRoverInited(new Location(0, 0), E);
     marsRover.apply(inited);
 
@@ -78,5 +89,24 @@ class MarsRoverTest {
     assertEquals(1, marsRover.getLocation().getX());
     assertEquals(0, marsRover.getLocation().getY());
     assertEquals(E, marsRover.getDirection());
+  }
+
+  @ParameterizedTest
+  @CsvSource({
+      "N, E",
+      "E, S",
+      "S, W",
+      "W, N"
+  })
+  void should_turn_right_success(Direction from, Direction to) {
+    MarsRoverInited inited = new MarsRoverInited(new Location(0, 0), from);
+    marsRover.apply(inited);
+
+    MarsRoverTurned event = marsRover.turnRight();
+    marsRover.apply(event);
+
+    assertEquals(0, marsRover.getLocation().getX());
+    assertEquals(0, marsRover.getLocation().getY());
+    assertEquals(to, marsRover.getDirection());
   }
 }
