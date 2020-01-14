@@ -1,5 +1,8 @@
 package com.thoughtworks.school.practice.marsrover;
 
+import static com.thoughtworks.school.practice.marsrover.Direction.N;
+import static com.thoughtworks.school.practice.marsrover.Direction.W;
+
 import com.thoughtworks.school.practice.marsrover.event.MarsRoverInited;
 import com.thoughtworks.school.practice.marsrover.event.MarsRoverMoved;
 
@@ -26,7 +29,13 @@ public class MarsRover {
   }
 
   public MarsRoverMoved move() {
-    return new MarsRoverMoved(new Location(location.getX(), location.getY() + 1));
+    if (this.direction == N) {
+      return new MarsRoverMoved(new Location(location.getX(), location.getY() + 1));
+    }
+    if (this.direction == W) {
+      return new MarsRoverMoved(new Location(location.getX() - 1, location.getY()));
+    }
+    return null;
   }
 
   public void apply(MarsRoverMoved event) {

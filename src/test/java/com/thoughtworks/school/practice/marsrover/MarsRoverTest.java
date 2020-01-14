@@ -34,4 +34,18 @@ class MarsRoverTest {
     assertEquals(1, marsRover.getLocation().getY());
     assertEquals(N, marsRover.getDirection());
   }
+
+  @Test
+  void should_make_x_minus_1_when_move_west() {
+    MarsRover marsRover = new MarsRover();
+    MarsRoverInited inited = new MarsRoverInited(new Location(0, 0), W);
+    marsRover.apply(inited);
+
+    MarsRoverMoved event = marsRover.move();
+    marsRover.apply(event);
+
+    assertEquals(-1, marsRover.getLocation().getX());
+    assertEquals(0, marsRover.getLocation().getY());
+    assertEquals(W, marsRover.getDirection());
+  }
 }
