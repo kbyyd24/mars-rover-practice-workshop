@@ -5,8 +5,16 @@ import static com.thoughtworks.school.practice.marsrover.Direction.W;
 
 import com.thoughtworks.school.practice.marsrover.event.MarsRoverInited;
 import com.thoughtworks.school.practice.marsrover.event.MarsRoverMoved;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Function;
 
 public class MarsRover {
+
+  private final static Map<Direction, Function<Location, Location>> MOVE_MAP = new HashMap<Direction, Function<Location, Location>>() {{
+    this.put(N, location -> new Location(location.getX(), location.getY() + 1));
+    this.put(W, location -> new Location(location.getX() - 1, location.getY()));
+  }};
 
   private Location location;
   private Direction direction;
@@ -29,13 +37,7 @@ public class MarsRover {
   }
 
   public MarsRoverMoved move() {
-    if (this.direction == N) {
-      return new MarsRoverMoved(new Location(location.getX(), location.getY() + 1));
-    }
-    if (this.direction == W) {
-      return new MarsRoverMoved(new Location(location.getX() - 1, location.getY()));
-    }
-    return null;
+    return new MarsRoverMoved(MOVE_MAP.get(this.direction).apply(this.location));
   }
 
   public void apply(MarsRoverMoved event) {
