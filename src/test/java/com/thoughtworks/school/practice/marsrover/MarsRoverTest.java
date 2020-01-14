@@ -1,6 +1,9 @@
 package com.thoughtworks.school.practice.marsrover;
 
-import static com.thoughtworks.school.practice.marsrover.Direction.*;
+import static com.thoughtworks.school.practice.marsrover.Direction.E;
+import static com.thoughtworks.school.practice.marsrover.Direction.N;
+import static com.thoughtworks.school.practice.marsrover.Direction.S;
+import static com.thoughtworks.school.practice.marsrover.Direction.W;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.thoughtworks.school.practice.marsrover.event.MarsRoverInited;
@@ -61,6 +64,19 @@ class MarsRoverTest {
     assertEquals(0, marsRover.getLocation().getX());
     assertEquals(-1, marsRover.getLocation().getY());
     assertEquals(S, marsRover.getDirection());
+  }
 
+  @Test
+  void should_make_x_plus_1_when_move_east() {
+    MarsRover marsRover = new MarsRover();
+    MarsRoverInited inited = new MarsRoverInited(new Location(0, 0), E);
+    marsRover.apply(inited);
+
+    MarsRoverMoved event = marsRover.move();
+    marsRover.apply(event);
+
+    assertEquals(1, marsRover.getLocation().getX());
+    assertEquals(0, marsRover.getLocation().getY());
+    assertEquals(E, marsRover.getDirection());
   }
 }
