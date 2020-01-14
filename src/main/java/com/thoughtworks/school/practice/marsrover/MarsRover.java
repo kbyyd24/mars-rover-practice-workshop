@@ -56,4 +56,8 @@ public class MarsRover {
   public void apply(MarsRoverTurned event) {
     this.direction = event.getDirection();
   }
+
+  public MarsRoverTurned turnLeft() {
+    return new MarsRoverTurned(Direction.leftOf(this.direction));
+  }
 }

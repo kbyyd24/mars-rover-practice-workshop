@@ -109,4 +109,23 @@ class MarsRoverTest {
     assertEquals(0, marsRover.getLocation().getY());
     assertEquals(to, marsRover.getDirection());
   }
+
+  @ParameterizedTest
+  @CsvSource({
+      "N, W",
+      "W, S",
+      "S, E",
+      "E, N"
+  })
+  void should_turn_left_success(Direction from, Direction to) {
+    MarsRoverInited inited = new MarsRoverInited(new Location(0, 0), from);
+    marsRover.apply(inited);
+
+    MarsRoverTurned event = marsRover.turnLeft();
+    marsRover.apply(event);
+
+    assertEquals(0, marsRover.getLocation().getX());
+    assertEquals(0, marsRover.getLocation().getY());
+    assertEquals(to, marsRover.getDirection());
+  }
 }

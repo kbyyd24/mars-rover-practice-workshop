@@ -13,4 +13,10 @@ public enum Direction {
     int rightValueIndex = (values.indexOf(source) + 1) % values.size();
     return values.get(rightValueIndex);
   }
+
+  public static Direction leftOf(Direction source) {
+    List<Direction> values = Arrays.stream(values()).collect(toList());
+    int leftValueIndex = (values.indexOf(source) + (values.size() - 1)) % values.size();
+    return values.get(leftValueIndex);
+  }
 }
