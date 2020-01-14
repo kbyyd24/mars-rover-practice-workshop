@@ -1,6 +1,7 @@
 package com.thoughtworks.school.practice.marsrover;
 
 import static com.thoughtworks.school.practice.marsrover.Direction.N;
+import static com.thoughtworks.school.practice.marsrover.Direction.S;
 import static com.thoughtworks.school.practice.marsrover.Direction.W;
 
 import com.thoughtworks.school.practice.marsrover.event.MarsRoverInited;
@@ -14,6 +15,7 @@ public class MarsRover {
   private final static Map<Direction, Function<Location, Location>> MOVE_MAP = new HashMap<Direction, Function<Location, Location>>() {{
     this.put(N, location -> new Location(location.getX(), location.getY() + 1));
     this.put(W, location -> new Location(location.getX() - 1, location.getY()));
+    this.put(S, location -> new Location(location.getX(), location.getY() - 1));
   }};
 
   private Location location;
