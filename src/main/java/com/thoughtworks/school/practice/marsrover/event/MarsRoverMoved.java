@@ -2,7 +2,7 @@ package com.thoughtworks.school.practice.marsrover.event;
 
 import com.thoughtworks.school.practice.marsrover.Location;
 
-public class MarsRoverMoved {
+public class MarsRoverMoved implements Event{
 
   private final Location endLocation;
 

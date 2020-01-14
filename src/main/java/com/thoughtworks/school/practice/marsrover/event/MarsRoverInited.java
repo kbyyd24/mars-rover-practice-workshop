@@ -3,7 +3,7 @@ package com.thoughtworks.school.practice.marsrover.event;
 import com.thoughtworks.school.practice.marsrover.Direction;
 import com.thoughtworks.school.practice.marsrover.Location;
 
-public class MarsRoverInited {
+public class MarsRoverInited implements Event {
 
   private final Location location;
   private final Direction direction;

@@ -2,7 +2,8 @@ package com.thoughtworks.school.practice.marsrover.event;
 
 import com.thoughtworks.school.practice.marsrover.Direction;
 
-public class MarsRoverTurned {
+public class MarsRoverTurned implements Event {
+
   private final Direction direction;
 
   public MarsRoverTurned(Direction direction) {
