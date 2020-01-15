@@ -60,6 +60,7 @@ public class MarsRover {
   public MarsRover() {
     this.commandToAction = new HashMap<>();
     commandToAction.put(F, this::forward);
+    commandToAction.put(B, this::backward);
     commandToAction.put(L, this::turnLeft);
     commandToAction.put(R, this::turnRight);
   }

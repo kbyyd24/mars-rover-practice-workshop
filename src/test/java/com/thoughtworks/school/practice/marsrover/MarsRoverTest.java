@@ -1,5 +1,6 @@
 package com.thoughtworks.school.practice.marsrover;
 
+import static com.thoughtworks.school.practice.marsrover.Command.B;
 import static com.thoughtworks.school.practice.marsrover.Command.L;
 import static com.thoughtworks.school.practice.marsrover.Command.F;
 import static com.thoughtworks.school.practice.marsrover.Command.R;
@@ -86,10 +87,10 @@ class MarsRoverTest {
   void should_handle_batch_command_success() {
     MarsRover marsRover = new MarsRover();
 
-    marsRover.handleBatch(0, 0, N, F, R, F, R, F, F, F, R, F, L, F, L);
+    marsRover.handleBatch(0, 0, N, F, R, F, R, F, F, B, R, F, L, F, L);
 
     assertEquals(0, marsRover.getLocation().getX());
-    assertEquals(-3, marsRover.getLocation().getY());
+    assertEquals(-1, marsRover.getLocation().getY());
     assertEquals(E, marsRover.getDirection());
   }
 }
