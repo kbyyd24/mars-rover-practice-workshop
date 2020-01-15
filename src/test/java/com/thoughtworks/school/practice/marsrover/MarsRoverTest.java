@@ -5,8 +5,6 @@ import static com.thoughtworks.school.practice.marsrover.Command.M;
 import static com.thoughtworks.school.practice.marsrover.Command.R;
 import static com.thoughtworks.school.practice.marsrover.Direction.E;
 import static com.thoughtworks.school.practice.marsrover.Direction.N;
-import static com.thoughtworks.school.practice.marsrover.Direction.S;
-import static com.thoughtworks.school.practice.marsrover.Direction.W;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
@@ -26,52 +24,22 @@ class MarsRoverTest {
     assertEquals(N, marsRover.getDirection());
   }
 
-  @Test
-  void should_make_y_plus_1_when_move_and_direction_is_north() {
+  @ParameterizedTest
+  @CsvSource({
+      "N, 0, 1",
+      "W, -1, 0",
+      "S, 0, -1",
+      "E, 1, 0"
+  })
+  void should_forward_success(Direction direction, int finalX, int finalY) {
     MarsRover marsRover = new MarsRover();
-    marsRover.init(0, 0, N);
+    marsRover.init(0, 0, direction);
 
     marsRover.move();
 
-    assertEquals(0, marsRover.getLocation().getX());
-    assertEquals(1, marsRover.getLocation().getY());
-    assertEquals(N, marsRover.getDirection());
-  }
-
-  @Test
-  void should_make_x_minus_1_when_move_and_direction_is_west() {
-    MarsRover marsRover = new MarsRover();
-    marsRover.init(0, 0, W);
-
-    marsRover.move();
-
-    assertEquals(-1, marsRover.getLocation().getX());
-    assertEquals(0, marsRover.getLocation().getY());
-    assertEquals(W, marsRover.getDirection());
-  }
-
-  @Test
-  void should_make_y_minus_1_when_move_and_direction_is_south() {
-    MarsRover marsRover = new MarsRover();
-    marsRover.init(0, 0, S);
-
-    marsRover.move();
-
-    assertEquals(0, marsRover.getLocation().getX());
-    assertEquals(-1, marsRover.getLocation().getY());
-    assertEquals(S, marsRover.getDirection());
-  }
-
-  @Test
-  void should_make_x_plus_1_when_move_and_direction_is_east() {
-    MarsRover marsRover = new MarsRover();
-    marsRover.init(0, 0, E);
-
-    marsRover.move();
-
-    assertEquals(1, marsRover.getLocation().getX());
-    assertEquals(0, marsRover.getLocation().getY());
-    assertEquals(E, marsRover.getDirection());
+    assertEquals(finalX, marsRover.getLocation().getX());
+    assertEquals(finalY, marsRover.getLocation().getY());
+    assertEquals(direction, marsRover.getDirection());
   }
 
   @ParameterizedTest
