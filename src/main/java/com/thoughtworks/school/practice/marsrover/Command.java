@@ -1,5 +1,5 @@
 package com.thoughtworks.school.practice.marsrover;
 
 public enum Command {
-  L, R, M
+  L, R, F, B
 }
