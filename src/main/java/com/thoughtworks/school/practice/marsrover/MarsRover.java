@@ -17,14 +17,29 @@ import java.util.function.Function;
 
 public class MarsRover {
 
-  private static final Map<Direction, Function<Command, Function<Location, Location>>> MOVE_MAP = Collections
-      .unmodifiableMap(new HashMap<Direction, Function<Command, Function<Location, Location>>>() {{
-        this.put(N, command -> location -> new Location(location.getX(), location.getY() + command.getAmmountOfMovement()));
-        this.put(S, command -> location -> new Location(location.getX(), location.getY() - command.getAmmountOfMovement()));
-        this.put(E, command -> location -> new Location(location.getX() + command.getAmmountOfMovement(), location.getY()));
-        this.put(W, command -> location -> new Location(location.getX() - command.getAmmountOfMovement(), location.getY()));
+  private static final Map<Direction, Location> DIRECTION_TO_RELATED_LOCATION = Collections.unmodifiableMap(new HashMap<Direction, Location>() {{
+    this.put(N, new Location(0, 1));
+    this.put(W, new Location(-1, 0));
+    this.put(S, new Location(0, -1));
+    this.put(E, new Location(1, 0));
+  }});
+  private static final Map<Command, Map<Direction, Function<Location, Location>>> MOVE_MAP = Collections
+      .unmodifiableMap(new HashMap<Command, Map<Direction, Function<Location, Location>>>() {{
+        HashMap<Direction, Function<Location, Location>> forwardMap = new HashMap<Direction, Function<Location, Location>>() {{
+          this.put(N, location -> new Location(location.getX(), location.getY() + 1));
+          this.put(S, location -> new Location(location.getX(), location.getY() - 1));
+          this.put(E, location -> new Location(location.getX() + 1, location.getY()));
+          this.put(W, location -> new Location(location.getX() - 1, location.getY()));
+        }};
+        HashMap<Direction, Function<Location, Location>> backwardMap = new HashMap<Direction, Function<Location, Location>>() {{
+          this.put(N, location -> new Location(location.getX(), location.getY() - 1));
+          this.put(S, location -> new Location(location.getX(), location.getY() + 1));
+          this.put(E, location -> new Location(location.getX() - 1, location.getY()));
+          this.put(W, location -> new Location(location.getX() + 1, location.getY()));
+        }};
+        this.put(F, forwardMap);
+        this.put(B, backwardMap);
       }});
-
   private static final Map<Direction, Direction> TURN_LEFT_MAP = Collections.unmodifiableMap(new HashMap<Direction, Direction>() {{
     this.put(N, W);
     this.put(W, S);
@@ -64,15 +79,12 @@ public class MarsRover {
   }
 
   public void forward() {
-    this.location = move(F);
+    Location relatedLocation = DIRECTION_TO_RELATED_LOCATION.get(this.direction);
+    this.location = this.location.getAbsoluteLocation(relatedLocation);
   }
 
   public void backward() {
-    this.location = move(B);
-  }
-
-  private Location move(Command command) {
-    return MOVE_MAP.get(this.direction).apply(command).apply(this.location);
+    this.location = MOVE_MAP.get(B).get(this.direction).apply(this.location);
   }
 
   public void turnLeft() {
