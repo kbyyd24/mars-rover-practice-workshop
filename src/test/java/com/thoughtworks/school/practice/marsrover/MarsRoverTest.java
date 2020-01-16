@@ -91,6 +91,17 @@ class MarsRoverTest {
     assertEquals(direction, marsRover.getDirection());
   }
 
+  @ParameterizedTest
+  @CsvSource({"N, W", "W, S", "S, E", "E, N"})
+  void should_turn_left_when_turn_right_and_mars_rover_is_in_backing_status(Direction from, Direction to) {
+    marsRover.init(0, 0, from);
+    marsRover.toBacking();
+
+    marsRover.turnRight();
+
+    assertEquals(to, marsRover.getDirection());
+  }
+
   @Test
   void should_handle_batch_command_success() {
     marsRover.handleBatch(0, 0, N, M, R, M, R, M, M, M, R, M, L, M, L);

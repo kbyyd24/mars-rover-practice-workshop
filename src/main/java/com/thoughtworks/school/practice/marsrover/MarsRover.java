@@ -74,7 +74,8 @@ public class MarsRover {
   }
 
   public void turnRight() {
-    this.direction = TURN_RIGHT_MAP.get(this.direction);
+    Function<Direction, Direction> turnRight = this.movementStatus == FORWARD ? Direction::right : Direction::left;
+    this.direction = turnRight.apply(this.direction);
   }
 
   public void handleBatch(int initLocationX, int initLocationY, Direction initDirection, Command... commands) {
