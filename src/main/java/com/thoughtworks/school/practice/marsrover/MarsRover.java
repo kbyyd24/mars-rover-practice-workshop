@@ -7,20 +7,17 @@ import static com.thoughtworks.school.practice.marsrover.Direction.E;
 import static com.thoughtworks.school.practice.marsrover.Direction.N;
 import static com.thoughtworks.school.practice.marsrover.Direction.S;
 import static com.thoughtworks.school.practice.marsrover.Direction.W;
+import static com.thoughtworks.school.practice.marsrover.MovementStatus.BACKWARD;
+import static com.thoughtworks.school.practice.marsrover.MovementStatus.FORWARD;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.function.Function;
 
 public class MarsRover {
 
-  private static final Map<Direction, Location> DIRECTION_TO_RELATED_LOCATION = Collections.unmodifiableMap(new HashMap<Direction, Location>() {{
-    this.put(N, new Location(0, 1));
-    this.put(W, new Location(-1, 0));
-    this.put(S, new Location(0, -1));
-    this.put(E, new Location(1, 0));
-  }});
   private static final Map<Direction, Direction> TURN_LEFT_MAP = Collections.unmodifiableMap(new HashMap<Direction, Direction>() {{
     this.put(N, W);
     this.put(W, S);
@@ -34,8 +31,18 @@ public class MarsRover {
     this.put(W, N);
   }});
 
+  private static final int STEP = 1;
+  private static final Map<Direction, Function<MovementStatus, Function<Location, Location>>> MOVE_FUNCTION = Collections
+      .unmodifiableMap(new HashMap<Direction, Function<MovementStatus, Function<Location, Location>>>() {{
+        this.put(N, movementStatus -> location -> new Location(location.getX(), location.getY() + (movementStatus.getMovementFactor() * STEP)));
+        this.put(S, movementStatus -> location -> new Location(location.getX(), location.getY() - (movementStatus.getMovementFactor() * STEP)));
+        this.put(E, movementStatus -> location -> new Location(location.getX() + (movementStatus.getMovementFactor() * STEP), location.getY()));
+        this.put(W, movementStatus -> location -> new Location(location.getX() - (movementStatus.getMovementFactor() * STEP), location.getY()));
+      }});
+
   private Location location;
   private Direction direction;
+  private MovementStatus movementStatus = FORWARD;
   private final Map<Command, Runnable> commandToAction;
 
   public MarsRover() {
@@ -59,8 +66,7 @@ public class MarsRover {
   }
 
   public void move() {
-    Location relatedLocation = DIRECTION_TO_RELATED_LOCATION.get(this.direction);
-    this.location = this.location.getAbsoluteLocation(relatedLocation);
+    this.location = MOVE_FUNCTION.get(this.direction).apply(this.movementStatus).apply(this.location);
   }
 
   public void turnLeft() {
@@ -78,5 +84,9 @@ public class MarsRover {
 
   private void handle(Command command) {
     this.commandToAction.get(command).run();
+  }
+
+  public void toBacking() {
+    this.movementStatus = BACKWARD;
   }
 }
