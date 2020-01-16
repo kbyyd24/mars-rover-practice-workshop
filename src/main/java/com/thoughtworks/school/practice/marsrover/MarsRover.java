@@ -18,19 +18,6 @@ import java.util.function.Function;
 
 public class MarsRover {
 
-  private static final Map<Direction, Direction> TURN_LEFT_MAP = Collections.unmodifiableMap(new HashMap<Direction, Direction>() {{
-    this.put(N, W);
-    this.put(W, S);
-    this.put(S, E);
-    this.put(E, N);
-  }});
-  private static final Map<Direction, Direction> TURN_RIGHT_MAP = Collections.unmodifiableMap(new HashMap<Direction, Direction>() {{
-    this.put(N, E);
-    this.put(E, S);
-    this.put(S, W);
-    this.put(W, N);
-  }});
-
   private static final int STEP = 1;
   private static final Map<Direction, Function<MovementStatus, Function<Location, Location>>> MOVE_FUNCTION = Collections
       .unmodifiableMap(new HashMap<Direction, Function<MovementStatus, Function<Location, Location>>>() {{
@@ -70,7 +57,8 @@ public class MarsRover {
   }
 
   public void turnLeft() {
-    this.direction = TURN_LEFT_MAP.get(this.direction);
+    Function<Direction, Direction> turnLeft = this.movementStatus == FORWARD ? Direction::left : Direction::right;
+    this.direction = turnLeft.apply(this.direction);
   }
 
   public void turnRight() {
