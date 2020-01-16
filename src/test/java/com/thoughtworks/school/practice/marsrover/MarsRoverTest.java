@@ -80,9 +80,9 @@ class MarsRoverTest {
       "S, 0, 1",
       "E, -1, 0"
   })
-  void should_move_back_when_mars_rover_is_in_backing_status(Direction direction, int finalX, int finalY) {
+  void should_move_back_when_mars_rover_is_in_backwarding_status(Direction direction, int finalX, int finalY) {
     marsRover.init(0, 0, direction);
-    marsRover.toBacking();
+    marsRover.toBackwarding();
 
     marsRover.move();
 
@@ -93,9 +93,9 @@ class MarsRoverTest {
 
   @ParameterizedTest
   @CsvSource({"N, W", "W, S", "S, E", "E, N"})
-  void should_turn_left_when_turn_right_and_mars_rover_is_in_backing_status(Direction from, Direction to) {
+  void should_turn_left_when_turn_right_and_mars_rover_is_in_backwarding_status(Direction from, Direction to) {
     marsRover.init(0, 0, from);
-    marsRover.toBacking();
+    marsRover.toBackwarding();
 
     marsRover.turnRight();
 
@@ -104,11 +104,54 @@ class MarsRoverTest {
 
   @ParameterizedTest
   @CsvSource({"N, E", "E, S", "S, W", "W, N"})
-  void should_turn_right_when_turn_left_and_mars_rover_is_in_backing_status(Direction from, Direction to) {
+  void should_turn_right_when_turn_left_and_mars_rover_is_in_backwarding_status(Direction from, Direction to) {
     marsRover.init(0, 0, from);
-    marsRover.toBacking();
+    marsRover.toBackwarding();
 
     marsRover.turnLeft();
+
+    assertEquals(to, marsRover.getDirection());
+  }
+
+  @ParameterizedTest
+  @CsvSource({
+      "N, 0, 1",
+      "W, -1, 0",
+      "S, 0, -1",
+      "E, 1, 0"
+  })
+  void should_forward_success_when_rover_status_turn_to_forwarding(Direction direction, int finalX, int finalY) {
+    marsRover.init(0, 0, direction);
+    marsRover.toBackwarding();
+    marsRover.toForwarding();
+
+    marsRover.move();
+
+    assertEquals(finalX, marsRover.getLocation().getX());
+    assertEquals(finalY, marsRover.getLocation().getY());
+    assertEquals(direction, marsRover.getDirection());
+  }
+
+  @ParameterizedTest
+  @CsvSource({"N, W", "W, S", "S, E", "E, N"})
+  void should_turn_left_success_when_rover_status_turn_to_forwarding(Direction from, Direction to) {
+    marsRover.init(0, 0, from);
+    marsRover.toBackwarding();
+    marsRover.toForwarding();
+
+    marsRover.turnLeft();
+
+    assertEquals(to, marsRover.getDirection());
+  }
+
+  @ParameterizedTest
+  @CsvSource({"N, E", "E, S", "S, W", "W, N"})
+  void should_turn_right_success_when_rover_status_turn_to_forwarding(Direction from, Direction to) {
+    marsRover.init(0, 0, from);
+    marsRover.toBackwarding();
+    marsRover.toForwarding();
+
+    marsRover.turnRight();
 
     assertEquals(to, marsRover.getDirection());
   }

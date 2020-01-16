@@ -75,7 +75,11 @@ public class MarsRover {
     this.commandToAction.get(command).run();
   }
 
-  public void toBacking() {
+  public void toBackwarding() {
     this.movementStatus = BACKWARD;
+  }
+
+  public void toForwarding() {
+    this.movementStatus = FORWARD;
   }
 }
