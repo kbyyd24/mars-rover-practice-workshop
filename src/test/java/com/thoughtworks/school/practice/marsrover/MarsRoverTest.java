@@ -1,7 +1,7 @@
 package com.thoughtworks.school.practice.marsrover;
 
 import static com.thoughtworks.school.practice.marsrover.Command.L;
-import static com.thoughtworks.school.practice.marsrover.Command.F;
+import static com.thoughtworks.school.practice.marsrover.Command.M;
 import static com.thoughtworks.school.practice.marsrover.Command.R;
 import static com.thoughtworks.school.practice.marsrover.Direction.E;
 import static com.thoughtworks.school.practice.marsrover.Direction.N;
@@ -35,7 +35,7 @@ class MarsRoverTest {
     MarsRover marsRover = new MarsRover();
     marsRover.init(0, 0, direction);
 
-    marsRover.forward();
+    marsRover.move();
 
     assertEquals(finalX, marsRover.getLocation().getX());
     assertEquals(finalY, marsRover.getLocation().getY());
@@ -64,29 +64,11 @@ class MarsRoverTest {
     assertEquals(to, marsRover.getDirection());
   }
 
-  @ParameterizedTest
-  @CsvSource({
-      "N, 0, -1",
-      "W, 1, 0",
-      "S, 0, 1",
-      "E, -1, 0"
-  })
-  void should_handle_backward_success(Direction direction, int finalX, int finalY) {
-    MarsRover marsRover = new MarsRover();
-    marsRover.init(0, 0, direction);
-
-    marsRover.backward();
-
-    assertEquals(finalX, marsRover.getLocation().getX());
-    assertEquals(finalY, marsRover.getLocation().getY());
-    assertEquals(direction, marsRover.getDirection());
-  }
-
   @Test
   void should_handle_batch_command_success() {
     MarsRover marsRover = new MarsRover();
 
-    marsRover.handleBatch(0, 0, N, F, R, F, R, F, F, F, R, F, L, F, L);
+    marsRover.handleBatch(0, 0, N, M, R, M, R, M, M, M, R, M, L, M, L);
 
     assertEquals(0, marsRover.getLocation().getX());
     assertEquals(-3, marsRover.getLocation().getY());
