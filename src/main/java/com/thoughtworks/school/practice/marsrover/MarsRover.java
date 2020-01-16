@@ -1,5 +1,7 @@
 package com.thoughtworks.school.practice.marsrover;
 
+import static com.thoughtworks.school.practice.marsrover.Command.B;
+import static com.thoughtworks.school.practice.marsrover.Command.H;
 import static com.thoughtworks.school.practice.marsrover.Command.L;
 import static com.thoughtworks.school.practice.marsrover.Command.M;
 import static com.thoughtworks.school.practice.marsrover.Command.R;
@@ -37,6 +39,8 @@ public class MarsRover {
     commandToAction.put(M, this::move);
     commandToAction.put(L, this::turnLeft);
     commandToAction.put(R, this::turnRight);
+    commandToAction.put(B, this::toBackwarding);
+    commandToAction.put(H, this::toForwarding);
   }
 
   public void init(int locationX, int locationY, Direction direction) {

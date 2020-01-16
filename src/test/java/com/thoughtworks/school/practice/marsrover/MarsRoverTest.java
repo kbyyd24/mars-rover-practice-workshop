@@ -1,10 +1,13 @@
 package com.thoughtworks.school.practice.marsrover;
 
+import static com.thoughtworks.school.practice.marsrover.Command.B;
+import static com.thoughtworks.school.practice.marsrover.Command.H;
 import static com.thoughtworks.school.practice.marsrover.Command.L;
 import static com.thoughtworks.school.practice.marsrover.Command.M;
 import static com.thoughtworks.school.practice.marsrover.Command.R;
 import static com.thoughtworks.school.practice.marsrover.Direction.E;
 import static com.thoughtworks.school.practice.marsrover.Direction.N;
+import static com.thoughtworks.school.practice.marsrover.Direction.W;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.AfterEach;
@@ -158,10 +161,10 @@ class MarsRoverTest {
 
   @Test
   void should_handle_batch_command_success() {
-    marsRover.handleBatch(0, 0, N, M, R, M, R, M, M, M, R, M, L, M, L);
+    marsRover.handleBatch(0, 0, N, M, R, M, R, M, M, B, M, R, M, H, L, M, L);
 
     assertEquals(0, marsRover.getLocation().getX());
-    assertEquals(-3, marsRover.getLocation().getY());
-    assertEquals(E, marsRover.getDirection());
+    assertEquals(1, marsRover.getLocation().getY());
+    assertEquals(W, marsRover.getDirection());
   }
 }
